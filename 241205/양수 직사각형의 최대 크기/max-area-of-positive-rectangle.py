@@ -11,7 +11,7 @@ graph = [list(map(int,input().split())) for _ in range(n)]
 def check(x,y,heigth,length):
     for i in range(x,x+heigth):
         for j in range(y,y+length):
-            if graph[i][j] < 0:
+            if graph[i][j] <= 0:
                 return False
     return True
 
