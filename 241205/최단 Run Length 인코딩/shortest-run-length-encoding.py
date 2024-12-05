@@ -5,20 +5,22 @@
 data = list(input())
 n = len(data)
 
-result = n # 최소 길이
-# 몇칸을 밀 것인지 결정
-for j in range(1,n):
-    data = [data[-1]] + data[:-1]
-    # 데이터 압축 수행
-    count = 1
-    alphabet = data[0]
-    for i in range(1,n):
-        if alphabet != data[i]:
-            alphabet = data[i]
-            count += 1
-    if count == 1:
-        result = min(result,3)
-    else:
-        result = min(result,count*2)
-        
-print(result)
+data = data*2
+
+min_count = 2*n
+for i in range(0,n):
+    # 슬라이딩 윈도우
+    a_count = 1
+    alphabet = data[i]
+    result = data[i]
+    for j in range(i+1,i+n):
+        if alphabet != data[j]:
+            result += str(a_count) + data[j]
+            alphabet = data[j]
+            a_count = 1
+        else:
+            a_count += 1
+    if result[-1] not in '1234567890':
+        result += str(a_count)
+    min_count = min(min_count,len(result))
+print(min_count)    
