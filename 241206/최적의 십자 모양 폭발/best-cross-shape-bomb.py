@@ -40,33 +40,21 @@ def bomb_simulation(x,y):
     t_count = 0 
     for i in range(n):
         num = cboard[i][0]
-        count = 0
-        for j in range(n):
-            if cboard[i][j] == num:
-                count += 1
+        for j in range(1,n):
+            if cboard[i][j] == num and num != 0:
+                t_count += 1
             else:
-                if count == 2 and num != 0:
-                    t_count += 1 # 순서쌍 개수 
                 num = cboard[i][j]
-                count = 1
-        if count == 2 and num != 0:
-            t_count += 1
     
     # 4.2. 세로 순서쌍 파악
     for i in range(n):
         num = cboard[0][i]
-        count = 0
-        for j in range(n):
-            if cboard[j][i] == num:
-                count += 1
+        for j in range(1,n):
+            if cboard[j][i] == num and num != 0:
+                t_count += 1
             else:
-                if count == 2 and num != 0:
-                    t_count += 1 # 순서쌍 개수 
                 num = cboard[j][i]
-                count = 1
-        if count == 2 and num != 0:
-            t_count += 1
-    
+
     result = max(result,t_count)
     
 for i in range(n):
