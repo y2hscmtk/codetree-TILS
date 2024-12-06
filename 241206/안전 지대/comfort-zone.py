@@ -1,7 +1,7 @@
 from collections import deque
 
 result = 0 # 최대 안전영역의 수
-result2 = 0 # 물에 최대로 잠기지 않게 하는 k의 값
+result2 = 1 # 물에 최대로 잠기지 않게 하는 k의 값
 dx = [0,0,-1,1]
 dy = [-1,1,0,0]
 
