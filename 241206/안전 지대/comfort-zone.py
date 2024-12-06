@@ -8,10 +8,7 @@ dy = [-1,1,0,0]
 n,m = map(int,input().split())
 data = [list(map(int,input().split())) for _ in range(n)]
 
-# 가장 큰 k의 값을 구하는 과정
-max_k = 0
-for row in data:
-    max_k = max(max_k,max(row))
+
 
 def bfs(s,e,k):
     global count
@@ -30,7 +27,7 @@ def bfs(s,e,k):
     count += 1 # 물에 잠기지 않는 영역의 수 증가
 
 # 1부터 k까지에 대해서 
-for k in range(1,max_k+1):
+for k in range(1,101):
     visited = [[False]*m for _ in range(n)] # visited 배열 초기화
     # 각 배열의 탐색
     count = 0 # k일때 물에 잠기지 않는 영역의 수
