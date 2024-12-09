@@ -31,7 +31,11 @@ def bfs():
 
 bfs()
 
-# 정답 출력
+# 끝까지 상하지 않는 귤이 있는지 검사
+for i in range(n):
+    for j in range(n):
+        if visited[i][j] == -1 and data[i][j] == 1:
+            visited[i][j] = -2
+
 for row in visited:
     print(*row)
-    
