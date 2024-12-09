@@ -9,6 +9,7 @@ def find_row():
         for j in range(k-1,k-1+m):
             if board[i][j] == 1: # 해당 줄에 블록이 존재한다면 블록은 떨어질 수 없음
                 return i-1 # 블록이 떨어져 최종적으로 위치하게 될것
+    return -1
 
 row = find_row()
 # 블록이 1칸이라도 떨어졌는지 확인
