@@ -40,17 +40,18 @@ def simulation(d,t):
             time += 1 
             game_progress = False
             return
-        if (nx,ny) in snake: # 몸이 꼬여 서로 겹치는 경우 종료
-            time += 1
-            game_progress = False
-            return
         # 이동하려는 칸에 사과가 존재한다면
         if board[nx][ny] == 1:
             board[nx][ny] = 0 # 사과 제거
             snake.append((nx,ny)) # 머리 추가
         else: # 사과가 존재하지 않는 경우
+            snake.popleft() # 꼬리 제거
+            if (nx,ny) in snake: # 다음에 머리가 이동할 칸에 몸통이 있는지 확인
+                time += 1
+                game_progress = False
+                return
+            # 몸통과 겹치지 않는다면 이동
             snake.append((nx,ny))
-            snake.popleft() # 가장 마지막 칸 제거
         time += 1 # 움직이는데 1초 소요
 
             
