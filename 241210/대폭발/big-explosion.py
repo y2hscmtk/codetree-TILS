@@ -16,10 +16,11 @@ def simulation():
         if time == m+1:
             return count
         new_bomb_ps = []
+        d = 2**(time-1)
         for x,y in bomb_ps:
             for dx,dy in zip(dsx,dsy):
-                nx = x + time*dx
-                ny = y + time*dy
+                nx = x + d*dx
+                ny = y + d*dy
                 if 0<=nx<n and 0<=ny<n and not visited[nx][ny]: # 폭탄이 놓인적 없는 위치로만 폭탄 이동 가능
                     visited[nx][ny] = True
                     new_bomb_ps.append((nx,ny))
@@ -27,5 +28,4 @@ def simulation():
         new_bomb_ps.append((x,y)) # 현재 위치도 또한번 폭탄이 터지는 위치에 해당
         bomb_ps = new_bomb_ps
         
-
 print(simulation())
