@@ -24,14 +24,12 @@ def move(x,y):
 
 # 충돌이 발생하지 않는 횟수가 n번 반복된다면, 남아있는 구슬이 정해진 경로를 반복 운동 하고 있다는 의미가 되지 않을까?
 def simulation():
-    global crash_count
     # 1. next_grid 초기화
     for i in range(n):
         for j in range(n):
             next_grid[i][j] = -1
     
     # 2. 각 구슬 이동
-    crash = False
     for i in range(n):
         for j in range(n):
             if grid[i][j] != -1: # 해당 칸에 구슬이 존재한다면
@@ -39,7 +37,6 @@ def simulation():
                 next_x,next_y = next_pos
                 if next_grid[next_x][next_y] != -1:
                     next_grid[next_x][next_y] = -1 # 이미 구슬이 위치한다면 충돌 처리
-                    crash = True
                 else: # 구슬이 위치하지 않는다면 - 충돌이 없다면
                     next_grid[next_x][next_y] = next_d
 
@@ -47,9 +44,16 @@ def simulation():
     for i in range(n):
         for j in range(n):
             grid[i][j] = next_grid[i][j]
-    
-    return crash # 충돌 여부 반환
 
+
+def get_marble_count():
+    # 남아있는 구슬의 개수 출력
+    marble_count = 0
+    for i in range(n):
+        for j in range(n):
+            if grid[i][j] != -1:
+                marble_count += 1
+    return marble_count
 
 for _ in range(t):
     n,m = map(int,input().split())
@@ -60,23 +64,18 @@ for _ in range(t):
         x,y,d = input().split()
         grid[int(x)-1][int(y)-1] = mapper[d]
 
+    last_marble_count = m # 이전에 남아있던 구슬의 개수
     crash_count = 0
     while True:
-        is_crash = simulation()
-        # 충돌하지 않았다면
-        if not is_crash:
-            crash_count += 1
-        else: # 충돌했다면 초기화
+        simulation() # 시뮬레이션 수행
+        curr_marble_count = get_marble_count() # 현재 남아있는 구슬 수 구하기
+        if last_marble_count == curr_marble_count: # 구슬의 개수가 여전히 동일하다면 -> 충돌 발생x
+            crash_count += 1 # 충돌이 발생하지 않고 이동한 턴의 수
+        else: # 충돌이 발생했다면 
+            last_marble_count = curr_marble_count
             crash_count = 0
-        # 충돌하지 않은채로 2*n + 2번 반복 했다면 끝에서 끝에 도달
-        # 시작(방향전환 +1) --- 끝(방향전환 +1) 
-        if crash_count == (2*n)+2:
+        # 충돌이 발생하지 않은채로 2*n턴이 지났다면
+        if crash_count == 2*n:
             break
-            
-    # 남아있는 구슬의 개수 출력
-    marble_count = 0
-    for i in range(n):
-        for j in range(n):
-            if grid[i][j] != -1:
-                marble_count += 1
-    print(marble_count)
+    
+    print(last_marble_count)
