@@ -68,8 +68,8 @@ for _ in range(t):
             crash_count += 1
         else: # 충돌했다면 초기화
             crash_count = 0
-        # 충돌하지 않은채로 n번 반복 했다면 끝에서 끝에 도달
-        if crash_count == n:
+        # 충돌하지 않은채로 2*n번 반복 했다면 끝에서 끝에 도달
+        if crash_count == 2*n:
             break
             
     # 남아있는 구슬의 개수 출력
