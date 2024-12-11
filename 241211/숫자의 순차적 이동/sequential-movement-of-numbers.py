@@ -10,6 +10,12 @@ def in_range(x,y):
         return True
     return False
 
+def find_pos(num):
+    for i in range(n):
+        for j in range(n):
+            if grid[i][j] == num:
+                return (i,j)
+
 def move(x,y):
     # 1. 8방향으로 인접한 수 중 가장 숫자가 큰 값과 위치 교환
     dsx = [-1,-1,-1,0,1,1,1,0]; dsy = [-1,0,1,1,1,0,-1,-1]
@@ -26,15 +32,9 @@ def move(x,y):
 def simulation():
     # 1. 숫자 1이 적힌 숫자부터 숫자 n*n까지 이동
     for num in range(1,(n*n)+1):
-        done = False
-        for i in range(n):
-            if done:
-                break
-            for j in range(n):
-                if grid[i][j] == num:
-                    move(i,j)
-                    done = True
-                    break
+        x,y = find_pos(num)
+        move(x,y)
+        
 
 
 # m번의 턴 수행
