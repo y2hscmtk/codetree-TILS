@@ -35,12 +35,18 @@ def simulation():
             if grid[i][j] != -1: # 해당 칸에 구슬이 존재한다면
                 next_pos,next_d = move(i,j)
                 next_x,next_y = next_pos
-                if next_grid[next_x][next_y] != -1:
-                    next_grid[next_x][next_y] = -1 # 이미 구슬이 위치한다면 충돌 처리
+                if next_grid[next_x][next_y] != -1: # 구슬이 이미 존재하거나, 충돌나는 칸으로 이동시
+                    next_grid[next_x][next_y] = -2 # 충돌 처리
                 else: # 구슬이 위치하지 않는다면 - 충돌이 없다면
                     next_grid[next_x][next_y] = next_d
+    
+    # 3. 충돌난 구슬 제거
+    for i in range(n):
+        for j in range(n):
+            if next_grid[i][j] == -2:
+                next_grid[i][j] = -1
 
-    # 3. next_grid의 값으로 grid 값 할당 - 구슬 이동 처리
+    # 4. next_grid의 값으로 grid 값 할당 - 구슬 이동 처리
     for i in range(n):
         for j in range(n):
             grid[i][j] = next_grid[i][j]
@@ -64,18 +70,8 @@ for _ in range(t):
         x,y,d = input().split()
         grid[int(x)-1][int(y)-1] = mapper[d]
 
-    last_marble_count = m # 이전에 남아있던 구슬의 개수
-    crash_count = 0
-    while True:
+    # 2*n 번 수행시 충돌 발생 불가 - 끝에서 끝까지 이동하는데 2*n 걸림
+    for _ in range(2*n):
         simulation() # 시뮬레이션 수행
-        curr_marble_count = get_marble_count() # 현재 남아있는 구슬 수 구하기
-        if last_marble_count == curr_marble_count: # 구슬의 개수가 여전히 동일하다면 -> 충돌 발생x
-            crash_count += 1 # 충돌이 발생하지 않고 이동한 턴의 수
-        else: # 충돌이 발생했다면 
-            last_marble_count = curr_marble_count
-            crash_count = 0
-        # 충돌이 발생하지 않은채로 2*n턴이 지났다면
-        if crash_count == 2*n:
-            break
-    
-    print(last_marble_count)
+
+    print(get_marble_count())
