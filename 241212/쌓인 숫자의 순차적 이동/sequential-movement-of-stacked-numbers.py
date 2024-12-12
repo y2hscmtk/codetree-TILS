@@ -46,9 +46,10 @@ def get_next_pos(x,y):
         nx = x + dx[i]; ny = y + dy[i]
         # 영역 안에 존재하는 숫자들(존재x : 0)
         if in_range(nx,ny):
-            if num_grid[nx][ny] and max_num < num_grid[nx][ny][-1]:
-                max_num = num_grid[nx][ny][-1]  
-                next_x,next_y = nx,ny
+            for next_num in num_grid[nx][ny]:
+                if max_num < next_num:
+                    max_num = next_num
+                    next_x,next_y = nx,ny
     return (next_x,next_y)
 
 
