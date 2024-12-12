@@ -9,9 +9,8 @@ block = []
 for _ in range(n):
     block.append(int(input()))
 
-def remove_block(pos):
+def remove_block(s,e):
     global block
-    s,e = pos
     temp = [] # 임시 배열
     # 1. 블록 제거
     for i in range(s-1,e):
@@ -25,7 +24,7 @@ def remove_block(pos):
 
 # 제거할 블록 순서
 for _ in range(2):
-    remove_block(map(int,input().split()))
+    remove_block(*map(int,input().split()))
 
 # 남아있는 블록 정보 출력
 print(len(block))
