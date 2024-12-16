@@ -8,6 +8,9 @@ result = 0
 for i in range(n):
     last = graph[i][0]
     count = 1
+    if count == m:
+        result += 1
+        continue
     for j in range(1,n):
         if graph[i][j] == last:
             count+=1
@@ -22,6 +25,9 @@ for i in range(n):
 for i in range(n):
     last = graph[0][i]
     count = 1
+    if count == m:
+        result += 1
+        continue
     for j in range(1,n):
         if graph[j][i] == last:
             count+=1
